@@ -1,0 +1,50 @@
+-- Create Département Table
+CREATE TABLE Departement (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    intitulé VARCHAR(255) NOT NULL,
+    responsable_id INT,
+    FOREIGN KEY (responsable_id) REFERENCES Enseignant(id)
+);
+
+-- Create Enseignant Table
+CREATE TABLE Enseignant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    prénom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    grade VARCHAR(255) NOT NULL,
+    département_id INT,
+    FOREIGN KEY (département_id) REFERENCES Département(id)
+);
+
+-- Create Filière Table
+CREATE TABLE Filiere (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    intitulé VARCHAR(255) NOT NULL,
+    responsable_id INT,
+    département_id INT,
+    FOREIGN KEY (responsable_id) REFERENCES Enseignant(id),
+    FOREIGN KEY (département_id) REFERENCES Département(id)
+);
+
+-- Create Module Table
+CREATE TABLE Module (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    intitulé VARCHAR(255) NOT NULL,
+    filière_id INT,
+    professeur_id INT,
+    FOREIGN KEY (filière_id) REFERENCES Filière(id),
+    FOREIGN KEY (professeur_id) REFERENCES Enseignant(id)
+);
+
+-- Create Étudiant Table
+CREATE TABLE Student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    prénom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    apogée INT NOT NULL,
+    filière_id INT,
+    FOREIGN KEY (filière_id) REFERENCES Filière(id)
+);
+
